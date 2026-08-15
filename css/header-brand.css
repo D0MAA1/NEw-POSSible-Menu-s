@@ -1,0 +1,11 @@
+.brand {
+  gap: 9px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  color: var(--green);
+  filter: drop-shadow(2px 2px 0 #b9e7db);
+}
