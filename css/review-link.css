@@ -13,13 +13,13 @@
 
 .footer-inner > .possible-signature {
   left: 0;
-  top: 50%;
+  top: 116px;
   transform: translateY(-50%);
 }
 
 .footer-inner > .social-links {
   left: 150px;
-  top: 50%;
+  top: 116px;
   transform: translateY(-50%);
 }
 
@@ -34,9 +34,9 @@
 .social-links { align-items: center; }
 
 .footer-inner .review-link {
-  left: 50%;
-  top: 33px;
-  transform: translateX(-50%);
+  left: 124px;
+  top: 34px;
+  transform: none;
   width: auto;
   min-width: 192px;
   height: 44px;
@@ -59,7 +59,7 @@
 .footer-inner .review-link:hover {
   background: #c68714;
   color: #fff;
-  transform: translate(-50%, -2px);
+  transform: translateY(-2px);
 }
 
 .review-link-label { font-size: 0; white-space: nowrap; }
