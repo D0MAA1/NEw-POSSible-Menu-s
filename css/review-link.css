@@ -1,4 +1,5 @@
 .footer-inner {
+  width: min(1488px, calc(100% - 80px));
   min-height: 198px;
   position: relative;
 }
@@ -66,6 +67,7 @@
 
 @media (max-width: 680px) {
   .footer-inner {
+    width: calc(100% - 28px);
     min-height: 220px;
     display: block;
     padding: 0;
