@@ -18,25 +18,33 @@
 }
 
 .footer-inner > .social-links {
-  left: 150px;
-  top: 116px;
+  left: 148px;
+  top: 114px;
   transform: translateY(-50%);
 }
 
 .footer-inner > #copyright {
   left: 50%;
-  bottom: 27px;
+  bottom: 28px;
   transform: translateX(-50%);
   margin: 0;
+  font-size: 14px;
   white-space: nowrap;
 }
 
 .social-links { align-items: center; }
 
+.social-links .social-link {
+  width: 42px;
+  height: 42px;
+}
+
+.social-links { gap: 12px; }
+
 .footer-inner .review-link {
-  left: 124px;
+  left: 50%;
   top: 34px;
-  transform: none;
+  transform: translateX(-50%);
   width: auto;
   min-width: 192px;
   height: 44px;
@@ -59,7 +67,7 @@
 .footer-inner .review-link:hover {
   background: #c68714;
   color: #fff;
-  transform: translateY(-2px);
+  transform: translate(-50%, -2px);
 }
 
 .review-link-label { font-size: 0; white-space: nowrap; }
@@ -77,4 +85,70 @@
   .footer-inner > .social-links { left: 50%; top: 157px; transform: translateX(-50%); }
   .footer-inner > #copyright { bottom: 18px; }
   .footer-inner .review-link { top: 24px; }
+}
+
+/* Final footer layout: keep each section independent so it stays aligned. */
+.footer-inner {
+  min-height: 204px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.footer-inner > .possible-signature {
+  position: static;
+  grid-column: 1;
+  grid-row: 1;
+  transform: none;
+  margin: 0;
+}
+
+.footer-inner > .social-links {
+  position: static;
+  grid-column: 1;
+  grid-row: 1;
+  transform: none;
+  margin: 0 0 0 148px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-inner .review-link {
+  position: absolute;
+  left: 50%;
+  top: 34px;
+  transform: translateX(-50%);
+  color: #007b70;
+  border-color: rgba(198, 135, 20, .18);
+}
+
+.footer-inner .review-link > span:first-child { color: #f7af00; }
+
+.footer-inner .review-link:hover {
+  background: #007b70;
+  color: #fff;
+  transform: translate(-50%, -2px);
+}
+
+.footer-inner > #copyright {
+  color: #587c89;
+  font-size: 14px;
+}
+
+@media (max-width: 680px) {
+  .footer-inner {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 104px;
+    gap: 16px;
+  }
+
+  .footer-inner > .possible-signature,
+  .footer-inner > .social-links { margin: 0; }
+
+  .footer-inner .review-link { top: 28px; }
+  .footer-inner > #copyright { bottom: 22px; font-size: 12px; }
 }
