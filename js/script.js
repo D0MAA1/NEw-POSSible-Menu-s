@@ -7,18 +7,18 @@ const text={en:['Fresh from the oven','Our Menu','Made with good ingredients, se
 function markup(index){const [title,note,items]=pages[index][lang];return `<div class="menu-page-content"><p class="section-number">${text[lang][5]} ${String(index+1).padStart(2,'0')}</p><h2>${title}</h2><p class="section-note">${note}</p><ul class="menu-list">${items.map(([n,p,d])=>`<li class="menu-item"><div class="item-line"><span class="item-name">${n}</span><span class="item-price">${p}</span></div><p class="item-description">${d}</p></li>`).join('')}</ul><span class="page-footer">POSsible Pizza · ${index+1}</span></div>`}
 function render(){const left=mobile()?spread:spread*2,right=left+1,total=mobile()?pages.length:Math.ceil(pages.length/2);$('#left-page').innerHTML=markup(left);$('#right-page').innerHTML=right<pages.length?markup(right):`<div class="menu-page-content"><p class="section-number">POSsible Pizza</p><h2>${lang==='ar'?'شهية طيبة':'Enjoy your meal'}</h2><p class="section-note">${lang==='ar'?'نراكم قريباً.':'See you again soon.'}</p></div>`;$('#page-count').textContent=`${spread+1} / ${total}`;$('#previous-page').disabled=spread===0;$('#next-page').disabled=spread===total-1;const t=text[lang];$('#eyebrow').textContent=t[0];$('#menu-heading').textContent=t[1];$('#intro-copy').textContent=t[2];$('#previous-label').textContent=t[3];$('#next-label').textContent=t[4]}
 function turn(direction){if(turning)return;const max=(mobile()?pages.length:Math.ceil(pages.length/2))-1,target=spread+direction;if(target<0||target>max)return;turning=true;spread=target;render();const sheet=$('#turn-sheet');sheet.className=`turn-sheet ${(direction>0)!==(lang==='ar')?'forward':'backward'}`;sheet.addEventListener('animationend',()=>{sheet.className='turn-sheet';turning=false},{once:true})}
-$('#previous-page').onclick=()=>turn(-1);$('#next-page').onclick=()=>turn(1);$('#language-toggle').onclick=()=>{lang=lang==='en'?'ar':'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');$('#language-toggle').textContent=lang==='en'?'العربية':'English';spread=0;render()};addEventListener('resize',()=>{spread=0;render()});render();
-// Mobile browsers emit resize events while their address bar expands or collapses.
-// Keep the current page for those viewport-height-only changes.
+$('#previous-page').onclick=()=>turn(-1);$('#next-page').onclick=()=>turn(1);$('#language-toggle').onclick=()=>{lang=lang==='en'?'ar':'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('rtl',lang==='ar');$('#language-toggle').textContent=lang==='en'?'العربية':'English';spread=0;render()};render();
+// Mobile browsers fire resize while the address bar shows or hides during scroll.
+// Re-render only when crossing the mobile/desktop breakpoint, and preserve the page.
 let currentLayoutIsMobile = mobile();
-addEventListener('resize', event => {
+addEventListener('resize', () => {
   const nextLayoutIsMobile = mobile();
-  if (nextLayoutIsMobile === currentLayoutIsMobile) {
-    event.stopImmediatePropagation();
-    return;
-  }
+  if (nextLayoutIsMobile === currentLayoutIsMobile) return;
   currentLayoutIsMobile = nextLayoutIsMobile;
-}, { capture: true });
+  const maxSpread = (nextLayoutIsMobile ? pages.length : Math.ceil(pages.length / 2)) - 1;
+  spread = Math.min(spread, maxSpread);
+  render();
+});
 
 const book = $('#menu-book-pages');
 let startX = 0, dragX = 0, pointerActive = false;
